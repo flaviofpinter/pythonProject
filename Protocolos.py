@@ -1,26 +1,19 @@
 from Criptografia import Criptografia
-from Funcionario import Funcionario
 
 
 class Protocolos:
     def __init__(self):
         pass
 
-    def iniciarProtocolo(self, atv, nome, ra, senha):
-        #func = Funcionario(nome, ra, senha)
+    def iniciarProtocolo(self, atv, func):
+
         if atv == 's':
             print('Iniciando Protocolo Emergêncial')
             print('\n-' * 10)
-            if (ra == 'N2291H6' and nome == "Nayury" and senha == '1704') or \
-                    (ra == "F149JF2" and nome == "Flavio" and senha == "1599") or \
-                    (ra == "N571586" and nome == "Robert" and senha == "4524") or \
-                    (ra == "F327JB5" and nome == "Michael" and senha == "1234") or \
-                    (ra == "1" and nome == "1" and senha == "1") or \
-                    (ra == "F311163" and nome == "Samyra" and senha == "0001"):
-                print(f'Olá, {nome}! seu acesso foi autorizado!')
+            if func.eValido():
+                print(f'Olá, {func.nome}! seu acesso foi autorizado!')
             else:
-                print('Acesso negado')
-                return
+                print("Acesso negado!")
         print(
             'Estamos iniciando o processo. '
             '\n-\nApartir de agora todo e qualquer contato externo e interno'
