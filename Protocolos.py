@@ -44,6 +44,7 @@ class Protocolos:
             else:
                 print("Digite um função válida.")
                 continue
-        
-            parar = int(input("Digite 1 para parar o programa.(1 / 0): "))
-
+            try:
+                parar = int(input("Digite 1 para parar o programa.(1 / 0): "))
+            except ValueError:
+                print("Opção inválida")
