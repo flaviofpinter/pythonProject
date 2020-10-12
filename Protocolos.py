@@ -7,7 +7,7 @@ class Protocolos:
         pass
 
     def iniciarProtocolo(self, atv, nome, ra, senha):
-        func = Funcionario(nome, ra, senha)
+        #func = Funcionario(nome, ra, senha)
         if atv == 's':
             print('Iniciando Protocolo Emergêncial')
             print('\n-' * 10)
@@ -15,6 +15,7 @@ class Protocolos:
                     (ra == "F149JF2" and nome == "Flavio" and senha == "1599") or \
                     (ra == "N571586" and nome == "Robert" and senha == "4524") or \
                     (ra == "F327JB5" and nome == "Michael" and senha == "1234") or \
+                    (ra == "1" and nome == "1" and senha == "1") or \
                     (ra == "F311163" and nome == "Samyra" and senha == "0001"):
                 print(f'Olá, {nome}! seu acesso foi autorizado!')
             else:
@@ -35,9 +36,9 @@ class Protocolos:
         print("Iniciando Protocolo de Comunicação")
         print('\n-' * 10)
         cripto = Criptografia()
-        val = cripto.keyGen()
-        print(val)
-        listCripto = cripto.codificacao(val[0], val[1])
-        cripto.criarArquivo(listCripto)
-
-        cripto.decodificacao(val[2], val[1])
+        msg = input('Digite a mensagem que deseja codificar: ')
+        rcod = cripto.codificacao(msg)
+        print(*rcod)
+        dados = input("Digite a mensagem que quer decodificar: ")
+        rdecod = cripto.decodificacao(dados)
+        print(rdecod)

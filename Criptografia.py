@@ -1,10 +1,8 @@
 import random
 import math
 
-class Criptografia:
-    def __init__(self):
-        pass
 
+class Criptografia:
     # Tabela de código P e Q
     _tabela_primos_ = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
                        101,
@@ -21,20 +19,10 @@ class Criptografia:
                        809,
                        811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887]
 
-    def codificacao(self, n, e):
-        # Tabela ASCII e Codificação da sentença
-        cod = []
-        msg = input('Digite a mensagem que deseja codificar: ')
-        indexList = []
-        for i in range(len(msg)):
-            indexList.append(ord(msg[i]))
-            cod.append((indexList[i] ** e) % n)
-
-        print(*cod)
-        return cod
+    def __init__(self):
+        self.chaves = self._keyGen_()
 
     # Lista de divisores
-
     def _div_(self, e):
         divisores = []
         for i in range(1, e + 1):
@@ -43,7 +31,6 @@ class Criptografia:
         return divisores
 
     # Comparação das listas
-
     def _verificarDiv_(self, div_e, div_t_n):
         listaDivisoresComum = []
         for i in range(0, len(div_e) - 1):
@@ -52,17 +39,8 @@ class Criptografia:
                     listaDivisoresComum.append(div_e[i])
         return listaDivisoresComum
 
-    def criarArquivo(self, cod):
-        #strList = ' '.join(str(x) for x in cod)
-        strList = '\n'.join(str(x) for x in cod)
-        for f in range(len(cod)):
-            f = open("texto_criptografado.txt", "w")
-            f.writelines(f"{strList}")
-            f.close()
-
-    def keyGen(self):
+    def _keyGen_(self):
         # Chave Privada 1
-
         p = random.choice(self._tabela_primos_)
         # Chave Privada 2
         q = random.choice(self._tabela_primos_)
@@ -93,18 +71,21 @@ class Criptografia:
 
         return n, e, d
 
-    def decodificacao(self, d, n):
-        msg = input("Digite a mensagem que quer decodificar: ")
-        decod = []
-        f = open("texto_criptografado.txt", "r")
-        out = f.readlines()
-        final = []
-        for i in range(0, len(out)):
-            c = int(out[i])
-            print(type(c))
-            print(c ** d % n)
+    def codificacao(self, msg):
+        # Tabela ASCII e Codificação da sentença
+        cod = []
+        indexList = []
+        for i in range(len(msg)):
+            indexList.append(ord(msg[i]))
+            cod.append((indexList[i] ** self.chaves[1]) % self.chaves[0])
 
+        return cod
 
-
-
-
+    def decodificacao(self, msg):
+        lista = msg.split(" ")
+        decod = ""
+        for i in range(0, len(lista)):
+            c = int(lista[i])
+            r = (c ** self.chaves[2]) % self.chaves[0]
+            decod += chr(r)
+        return decod
