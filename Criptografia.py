@@ -57,7 +57,6 @@ class Criptografia:
             div_t_n = self._div_(t_n)
             c = self._verificarDiv_(div_e, div_t_n)
             if len(c) == 1 and c[0] == 1:
-                print("E = ", e)
                 control = False
 
         # Chave Privada 3
@@ -66,7 +65,6 @@ class Criptografia:
             d = random.randint(0, 900000)
             mult = d * e
             if mult % t_n == 1:
-                print("D = ", d)
                 control = False
 
         return n, e, d

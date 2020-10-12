@@ -29,9 +29,21 @@ class Protocolos:
         print("Iniciando Protocolo de Comunicação")
         print('\n-' * 10)
         cripto = Criptografia()
-        msg = input('Digite a mensagem que deseja codificar: ')
-        rcod = cripto.codificacao(msg)
-        print(*rcod)
-        dados = input("Digite a mensagem que quer decodificar: ")
-        rdecod = cripto.decodificacao(dados)
-        print(rdecod)
+
+        parar = 0
+        while parar == 0:
+            pergunta = input("Deseja codificar ou decodificar?(c / d): ")
+            if pergunta == 'c':
+                msg = input('Digite a mensagem que deseja codificar: ')
+                rcod = cripto.codificacao(msg)
+                print(*rcod)
+            elif pergunta == 'd':
+                dados = input("Digite a mensagem que quer decodificar: ")
+                rdecod = cripto.decodificacao(dados)
+                print(rdecod)
+            else:
+                print("Digite um função válida.")
+                continue
+        
+            parar = int(input("Digite 1 para parar o programa.(1 / 0): "))
+

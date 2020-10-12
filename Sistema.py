@@ -13,6 +13,6 @@ class Sistema:
 
     def chamarProtocolo(self):
         func = Funcionario(input("Digite o nome: "), input("Digite o ra: "), input("Digite a senha: "))
-        atv = input('Deseja ativar um protocolo?: (s / n) ')
+        atv = input('Deseja ativar o protocolo?: (s / n) ')
         classprot = Protocolos()
         classprot.iniciarProtocolo(atv, func)
