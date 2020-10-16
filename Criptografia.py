@@ -38,7 +38,7 @@ class Criptografia:
                 if div_e[i] == div_t_n[k]:
                     listaDivisoresComum.append(div_e[i])
         return listaDivisoresComum
-
+        
     def _keyGen_(self):
         # Chave Privada 1
         p = random.choice(self._tabela_primos_)

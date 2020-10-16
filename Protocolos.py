@@ -36,6 +36,8 @@ class Protocolos:
             if pergunta == 'c':
                 msg = input('Digite a mensagem que deseja codificar: ')
                 rcod = cripto.codificacao(msg)
+                f = open("texto_criptografado.txt", "w")
+                f.writelines(["%s " % item for item in rcod])
                 print(*rcod)
             elif pergunta == 'd':
                 dados = input("Digite a mensagem que quer decodificar: ")
