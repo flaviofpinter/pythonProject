@@ -1,5 +1,4 @@
 import random
-import math
 
 
 class Criptografia:
@@ -20,7 +19,7 @@ class Criptografia:
                        811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887]
 
     def __init__(self):
-        self.chaves = self._keyGen_()
+        self.chaves = self.keyGen()
 
     # Lista de divisores
     def _div_(self, e):
@@ -39,7 +38,7 @@ class Criptografia:
                     listaDivisoresComum.append(div_e[i])
         return listaDivisoresComum
         
-    def _keyGen_(self):
+    def keyGen(self):
         # Chave Privada 1
         p = random.choice(self._tabela_primos_)
         # Chave Privada 2
@@ -79,11 +78,24 @@ class Criptografia:
 
         return cod
 
-    def decodificacao(self, msg):
-        lista = msg.split(" ")
+    def decodificacao(self):
+        f = open('texto_criptografado.txt', 'r')
+        lista = f.readlines()
         decod = ""
         for i in range(0, len(lista)):
             c = int(lista[i])
             r = (c ** self.chaves[2]) % self.chaves[0]
+            decod += chr(r)
+        return decod
+
+    def decodificacaoChaves(self, chave_d, chave_n):
+        f = open('texto_criptografado.txt', 'r')
+        lista = f.readlines()
+        print(lista)
+        decod = ""
+        for i in range(0, len(lista)):
+            c = int(lista[i])
+            r = (c ** chave_d) % chave_n
+            print(r)
             decod += chr(r)
         return decod

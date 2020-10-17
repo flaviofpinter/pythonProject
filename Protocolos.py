@@ -2,6 +2,7 @@ from Criptografia import Criptografia
 from PIL import Image
 from termcolor import cprint
 
+
 class Protocolos:
     def __init__(self):
         pass
@@ -31,22 +32,29 @@ class Protocolos:
             'para minimizar e restringir o contato. A área '
             'do entorno num raio de 10 quilômetros está isolada.')
         print('\n-' * 5)
-        print("\033[96m {}\033[00m" .format("Iniciando Protocolo de Comunicação"))
+        print("\033[96m {}\033[00m".format("Iniciando Protocolo de Comunicação"))
         print('\n-' * 5)
         cripto = Criptografia()
 
         parar = 0
         while parar == 0:
             pergunta = input("\033[93m {}\033[00m".format("Deseja codificar ou decodificar?(c / d): "))
+            val = cripto.keyGen()
             if pergunta == 'c':
                 msg = input("\033[93m {}\033[00m".format('Digite a mensagem que deseja codificar: '))
                 rcod = cripto.codificacao(msg)
-                f = open("texto_criptografado.txt", "w")
-                f.writelines(["%s " % item for item in rcod])
+                self._criarArquivo_(rcod)
                 cprint(' '.join(map(str, rcod)), 'magenta')
+                print("N: ", val[0], "D: ", val[2])
+                print("Salve essas duas chaves para decodificações futuras")
             elif pergunta == 'd':
+                pgt = input("Gostaria de inserir as chaves D e N ?(s / n): ")
+                if pgt == 's':
+                    chave_d = int(input("Digite a chave D: "))
+                    chave_n = int(input("Digite a chave N: "))
+                    cripto.decodificacaoChaves(chave_d, chave_n)
                 dados = input("\033[93m {}\033[00m".format("Digite a mensagem que quer decodificar: "))
-                rdecod = cripto.decodificacao(dados)
+                rdecod = cripto.decodificacao()
                 cprint(rdecod, 'magenta')
             else:
                 print("Digite um função válida.")
@@ -55,3 +63,10 @@ class Protocolos:
                 parar = int(input("\033[93m {}\033[00m".format("Digite 1 para parar o programa.(1 / 0): ")))
             except ValueError:
                 print("Opção inválida")
+
+    def _criarArquivo_(self, cod):
+        strList = '\n'.join(str(x) for x in cod)
+        for f in range(len(cod)):
+            f = open("texto_criptografado.txt", "w")
+            f.write(f"{strList} ")
+            f.close()

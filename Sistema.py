@@ -1,6 +1,5 @@
 from Funcionario import Funcionario
 from Protocolos import Protocolos
-from termcolor import cprint
 
 class Sistema:
 
