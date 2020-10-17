@@ -1,19 +1,24 @@
 from Criptografia import Criptografia
-
+from PIL import Image
+from termcolor import cprint
 
 class Protocolos:
     def __init__(self):
         pass
 
     def iniciarProtocolo(self, atv, func):
-
         if atv == 's':
-            print('Iniciando Protocolo Emergêncial')
-            print('\n-' * 10)
+            print("\033[96m {}\033[00m".format('Iniciando Protocolo Emergêncial'))
+            print('\n-' * 5)
             if func.eValido():
                 print(f'Olá, {func.nome}! seu acesso foi autorizado!')
             else:
                 print("Acesso negado!")
+        else:
+            img = Image.open('pepita.jpg_large')
+            img.show()
+            print("Finalizando então...")
+            return
         print(
             'Estamos iniciando o processo. '
             '\n-\nApartir de agora todo e qualquer contato externo e interno'
@@ -25,28 +30,28 @@ class Protocolos:
             'contato deverá ser realizado por meio de helicópteros, '
             'para minimizar e restringir o contato. A área '
             'do entorno num raio de 10 quilômetros está isolada.')
-        print('\n-' * 10)
-        print("Iniciando Protocolo de Comunicação")
-        print('\n-' * 10)
+        print('\n-' * 5)
+        print("\033[96m {}\033[00m" .format("Iniciando Protocolo de Comunicação"))
+        print('\n-' * 5)
         cripto = Criptografia()
 
         parar = 0
         while parar == 0:
-            pergunta = input("Deseja codificar ou decodificar?(c / d): ")
+            pergunta = input("\033[93m {}\033[00m".format("Deseja codificar ou decodificar?(c / d): "))
             if pergunta == 'c':
-                msg = input('Digite a mensagem que deseja codificar: ')
+                msg = input("\033[93m {}\033[00m".format('Digite a mensagem que deseja codificar: '))
                 rcod = cripto.codificacao(msg)
                 f = open("texto_criptografado.txt", "w")
                 f.writelines(["%s " % item for item in rcod])
-                print(*rcod)
+                cprint(' '.join(map(str, rcod)), 'magenta')
             elif pergunta == 'd':
-                dados = input("Digite a mensagem que quer decodificar: ")
+                dados = input("\033[93m {}\033[00m".format("Digite a mensagem que quer decodificar: "))
                 rdecod = cripto.decodificacao(dados)
-                print(rdecod)
+                cprint(rdecod, 'magenta')
             else:
                 print("Digite um função válida.")
                 continue
             try:
-                parar = int(input("Digite 1 para parar o programa.(1 / 0): "))
+                parar = int(input("\033[93m {}\033[00m".format("Digite 1 para parar o programa.(1 / 0): ")))
             except ValueError:
                 print("Opção inválida")
