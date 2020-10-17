@@ -37,7 +37,7 @@ class Criptografia:
                 if div_e[i] == div_t_n[k]:
                     listaDivisoresComum.append(div_e[i])
         return listaDivisoresComum
-        
+
     def keyGen(self):
         # Chave Privada 1
         p = random.choice(self._tabela_primos_)
@@ -65,8 +65,9 @@ class Criptografia:
             mult = d * e
             if mult % t_n == 1:
                 control = False
-
-        return n, e, d
+        print("N: ", n, "D: ", d)
+        print("Salve essas duas chaves para decodificações futuras")
+        return [n, e, d]
 
     def codificacao(self, msg):
         # Tabela ASCII e Codificação da sentença
@@ -88,14 +89,19 @@ class Criptografia:
             decod += chr(r)
         return decod
 
-    def decodificacaoChaves(self, chave_d, chave_n):
-        f = open('texto_criptografado.txt', 'r')
-        lista = f.readlines()
-        print(lista)
-        decod = ""
-        for i in range(0, len(lista)):
-            c = int(lista[i])
-            r = (c ** chave_d) % chave_n
-            print(r)
-            decod += chr(r)
-        return decod
+    # def decodificacaoChaves(self, chave_d, chave_n):
+    #     f = open('texto_criptografado.txt', 'r')
+    #     lista = f.readlines()
+    #     decod = ""
+    #     for i in range(0, len(lista)):
+    #         c = int(lista[i])
+    #         print("D: ", chave_d)
+    #         print("N: ", chave_n)
+    #         print(c)
+    #         r = (c ** chave_d) % chave_n
+    #         decod += chr(r)
+    #     return decod
+
+    def set_Chaves_N_e_D(self, n, d):
+        self.chaves[0] = n
+        self.chaves[2] = d

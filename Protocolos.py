@@ -35,25 +35,25 @@ class Protocolos:
         print("\033[96m {}\033[00m".format("Iniciando Protocolo de Comunicação"))
         print('\n-' * 5)
         cripto = Criptografia()
-
         parar = 0
         while parar == 0:
             pergunta = input("\033[93m {}\033[00m".format("Deseja codificar ou decodificar?(c / d): "))
-            val = cripto.keyGen()
             if pergunta == 'c':
                 msg = input("\033[93m {}\033[00m".format('Digite a mensagem que deseja codificar: '))
-                rcod = cripto.codificacao(msg)
-                self._criarArquivo_(rcod)
-                cprint(' '.join(map(str, rcod)), 'magenta')
-                print("N: ", val[0], "D: ", val[2])
-                print("Salve essas duas chaves para decodificações futuras")
+                if len(msg) <= 128:
+                    rcod = cripto.codificacao(msg)
+                    self._criarArquivoMsg_(rcod)
+                    cprint(' '.join(map(str, rcod)), 'magenta')
+                else:
+                    print("Você ultrapassou o número de caracteres suportado(Maximo 128)")
             elif pergunta == 'd':
                 pgt = input("Gostaria de inserir as chaves D e N ?(s / n): ")
                 if pgt == 's':
                     chave_d = int(input("Digite a chave D: "))
                     chave_n = int(input("Digite a chave N: "))
-                    cripto.decodificacaoChaves(chave_d, chave_n)
-                dados = input("\033[93m {}\033[00m".format("Digite a mensagem que quer decodificar: "))
+                    print("Sua mensagem decodificada é: ")
+                    cripto.set_Chaves_N_e_D(chave_n, chave_d)
+                    cripto.decodificacao()
                 rdecod = cripto.decodificacao()
                 cprint(rdecod, 'magenta')
             else:
@@ -64,7 +64,7 @@ class Protocolos:
             except ValueError:
                 print("Opção inválida")
 
-    def _criarArquivo_(self, cod):
+    def _criarArquivoMsg_(self, cod):
         strList = '\n'.join(str(x) for x in cod)
         for f in range(len(cod)):
             f = open("texto_criptografado.txt", "w")
