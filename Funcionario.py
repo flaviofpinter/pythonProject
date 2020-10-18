@@ -14,7 +14,6 @@ class Funcionario:
                 (self.ra == "F149JF2" and self.nome == "Flavio" and self.senha == "1599") or \
                 (self.ra == "N571586" and self.nome == "Robert" and self.senha == "4524") or \
                 (self.ra == "F327JB5" and self.nome == "Michael" and self.senha == "1234") or \
-                (self.ra == "1" and self.nome == "1" and self.senha == "1") or \
                 (self.ra == "F311163" and self.nome == "Samyra" and self.senha == "0001"):
             return True
         else:
