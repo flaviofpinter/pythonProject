@@ -14,11 +14,12 @@ class Protocolos:
             if func.eValido():
                 print(f'Olá, {func.nome}! seu acesso foi autorizado!')
             else:
-                print("Acesso negado!")
+                print("\033[91m {}\033[00m".format("Acesso negado!"))
+                return
         else:
             img = Image.open('pepita.jpg_large')
             img.show()
-            print("Finalizando então...")
+            print("\033[95m {}\033[00m".format("Finalizando então..."))
             return
         print(
             'Estamos iniciando o processo. '
@@ -47,7 +48,7 @@ class Protocolos:
                 else:
                     print("Você ultrapassou o número de caracteres suportado(Maximo 128)")
             elif pergunta == 'd':
-                pgt = input("Gostaria de inserir as chaves D e N ?(s / n): ")
+                pgt = input("\033[93m {}\033[00m".format("Gostaria de inserir as chaves D e N ?(s / n): "))
                 if pgt == 's':
                     chave_d = int(input("Digite a chave D: "))
                     chave_n = int(input("Digite a chave N: "))

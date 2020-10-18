@@ -66,7 +66,7 @@ class Criptografia:
             if mult % t_n == 1:
                 control = False
         print("N: ", n, "D: ", d)
-        print("Salve essas duas chaves para decodificações futuras")
+        print("\033[96m {}\033[00m".format("Salve essas duas chaves para decodificações futuras"))
         return [n, e, d]
 
     def codificacao(self, msg):
@@ -88,19 +88,6 @@ class Criptografia:
             r = (c ** self.chaves[2]) % self.chaves[0]
             decod += chr(r)
         return decod
-
-    # def decodificacaoChaves(self, chave_d, chave_n):
-    #     f = open('texto_criptografado.txt', 'r')
-    #     lista = f.readlines()
-    #     decod = ""
-    #     for i in range(0, len(lista)):
-    #         c = int(lista[i])
-    #         print("D: ", chave_d)
-    #         print("N: ", chave_n)
-    #         print(c)
-    #         r = (c ** chave_d) % chave_n
-    #         decod += chr(r)
-    #     return decod
 
     def set_Chaves_N_e_D(self, n, d):
         self.chaves[0] = n
